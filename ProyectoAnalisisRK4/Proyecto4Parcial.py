@@ -118,19 +118,20 @@ class RK4 :
         self.grafx.append(self.y[0])
 
 class Application(Frame):
-    
+    #inicializacion de la ventana
     def __init__(self, master):
         Frame.__init__(self, master)
         self.pack()
         self.inicio()
-        
+    #le da aspecto a la ventana y llama las dos partes iniciales del la ventana
+    #de inicio    
     def inicio(self):
         self.master.geometry("700x350")
         self.master.title("Proyecto 4° Parcial")
         self.master.config(bg="#EAFAFF")
         self.presentacion()
         self.createWidgets()
-        
+    #texto con la presentacion
     def presentacion(self):
         self.presentationFrame = Frame(self,bg="#EAFAFF")
         self.presentationFrame.pack({"side":"top"})
@@ -160,7 +161,7 @@ class Application(Frame):
                            text="Total muestra la lista de los 100 pasos con las soluciones de cada iteracion\n", 
                            justify=CENTER,bg="#EAFAFF",font=times12)
         self.label5.pack({"side":"top"})
-
+    #botones para pasarnos a la siguiente ventana
     def createWidgets(self):
         self.botonesInicio = Frame(self,bg="#EAFAFF")
         self.botonesInicio.pack({"side":"bottom"})
@@ -171,7 +172,7 @@ class Application(Frame):
         self.porPasos["fg"]="black"
         self.porPasos["command"]=self.PasoPorPasoDesdeInicio
         self.porPasos.pack({"side":"left"})
-        
+        #comentado hasta poder hacer que se reinicie la grafica
         #self.total = Button(self.botonesInicio)
         #self.total["text"]="Total"
         #self.total["bg"]="light green"
@@ -185,23 +186,27 @@ class Application(Frame):
         self.Salir["fg"]="red"
         self.Salir["command"]=self.quit
         self.Salir.pack({"side":"left"})
-        
-    def PasoPorPasoDesdeTotal(self):
-        self.botonesPantallaTres.destroy()
-        self.textoFrame.destroy()
-        #*********************************************************************
-        self.botonesPantallaSecundaria()
-        self.graficas()
+    #comentado hasta poder hacer que se reinicie la grafica    
+    #def PasoPorPasoDesdeTotal(self):
+    #    self.botonesPantallaTres.destroy()
+    #    self.textoFrame.destroy()
+    #    #*********************************************************************
+    #    self.botonesPantallaSecundaria()
+    #    self.graficas()
     
+    #llama la funcion ocultainicio y llama las funciones para agregar los 
+    #componente s de la parte dos
     def PasoPorPasoDesdeInicio(self):
         self.ocultaInicio()
         self.botonesPantallaSecundaria()
         self.graficas()
-        
+    
+    #forra los botones y los textos de la pantalla de inicio    
     def ocultaInicio(self):
        self.botonesInicio.destroy()       
        self.presentationFrame.destroy()
-        
+    
+    #genera las graficas de una forma que parece video    
     def graficas(self):
         self.graficaFrame = Frame(self,bg="#EAFAFF")
         self.graficaFrame.pack({"side":"top"})
@@ -220,7 +225,7 @@ class Application(Frame):
             fig.canvas.draw()
             time.sleep(0.1)   
         
-        
+    #genera los botones abajo de las graficas    
     def botonesPantallaSecundaria(self):
         self.botonesPantallaDos=Frame(self,bg="#EAFAFF")
         self.botonesPantallaDos.pack({"side":"bottom"})
@@ -239,11 +244,14 @@ class Application(Frame):
         self.Salir["command"]=self.quit
         self.Salir.pack({"side":"left"})
         
-    def TotalDesdeInicio(self):
-        self.ocultaInicio()
-        self.botonesPantallaTerciaria()
-        self.textoPantallaTerciaria()
-        
+    #def TotalDesdeInicio(self):
+    #    self.ocultaInicio()
+    #    self.botonesPantallaTerciaria()
+    #    self.textoPantallaTerciaria()
+    
+    #se pasa de las graficas a las soluciones
+    #se borran las graficas y los botones bajo esta, se generan los botones
+    #de esta pantalla y presenta las soluciones    
     def TotalDesdePasoPorPaso(self):
         self.graficaFrame.destroy()
         self.botonesPantallaDos.destroy()
