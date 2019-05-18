@@ -61,7 +61,7 @@ class RK4 :
         t=self.t
         Fevaluada=self.Fcalcula(t,x,y)
         for f in Fevaluada:
-            k1.append(f*self.t)
+            k1.append(f*self.h)
         self.k1=k1
         
     def kDos(self):
@@ -71,7 +71,7 @@ class RK4 :
         t=self.t+self.h/2
         Fevaluada=self.Fcalcula(t,x,y)
         for f in Fevaluada:
-            k2.append(f*self.t)
+            k2.append(f*self.h)
         self.k2=k2
         
     def kTres(self):
@@ -81,7 +81,7 @@ class RK4 :
         t=self.t+self.h/2
         Fevaluada=self.Fcalcula(t,x,y)
         for f in Fevaluada:
-            k3.append(f*self.t)
+            k3.append(f*self.h)
         self.k3=k3
         
     def kCuatro(self):
@@ -91,7 +91,7 @@ class RK4 :
         t=self.t+self.h
         Fevaluada=self.Fcalcula(t,x,y)
         for f in Fevaluada:
-            k4.append(f*self.t)
+            k4.append(f*self.h)
         self.k4=k4
     #se define la función NuevaY como la función que recalcula Y con los valores
     #de k1,k2,k3 y k4 objetnidos anteriormente

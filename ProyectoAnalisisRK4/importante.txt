@@ -1,0 +1,13 @@
+Es importante tener la biblioteca matplotlib para Python instalada para poder
+correr el programa.
+La interfaz gráfica esta desarrollada en Tkinter, un framework especialmente
+diseñado para Python de los mismos desarrolladores por lo que no debe haber
+complicación al correr el programa por esta parte.
+
+Anexo links sobre como descargar matplotlib en caso de ser necesario
+
+https://matplotlib.org/users/installing.html
+
+En caso de haber problema con la interfaz gráfica, anexo el programa que imprime
+en consola las gráficas y los resultados y muestra el mismo efecto de video 
+(auxiliar).
