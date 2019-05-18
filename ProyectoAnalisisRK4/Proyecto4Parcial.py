@@ -282,10 +282,10 @@ class Application(Frame):
         
         self.impresion = Text(self.textoFrame)
         rk4=RK4()
-        self.impresion.insert(INSERT,'Theta['+str(rk4.t)+'] = '+str(rk4.y)+'\n')
+        self.impresion.insert(INSERT,'X['+str(rk4.t)+'] = ['+str(rk4.y[0])+']\n')
         for i in range(100):
             rk4.itera()
-            self.impresion.insert(INSERT,'Theta['+str(rk4.t)+'] = '+str(rk4.y)+'\n')
+            self.impresion.insert(INSERT,'X['+str(rk4.t)+'] = ['+str(rk4.y[0])+']\n')
         self.impresion.insert(END,'')
         self.impresion.pack({"side":"top"})
         
