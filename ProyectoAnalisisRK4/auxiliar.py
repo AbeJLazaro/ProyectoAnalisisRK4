@@ -6,6 +6,7 @@ import time
 class RK4 :
     #valores que se inician al crear un objeto nuevo
     y=[]
+    xA=[]
     F=[]
     h=0
     #valores dinamicos, estos son auxiliares para encontrar a y
@@ -17,6 +18,7 @@ class RK4 :
     #listas para sacar la grafica del problema
     grafx=[]
     graft=[]
+    grafxanalitica=[]
     #constructor del objeto para encontrar la solucion
     def __init__(self):
         #se agrega en el vector(lista) y los valores iniciales tomando en cuenta que
@@ -33,6 +35,7 @@ class RK4 :
         #en equis para su posteriror ploteo
         self.graft.append(self.t)
         self.grafx.append(self.y[0])
+        self.grafxanalitica.append(self.y[0])
         
     #Esta funcion funge como auxiliar que calula el vector F de cada problema,
     #haciendolo funcion y generica lo podemos usar para cualquier k cambiando
@@ -96,6 +99,7 @@ class RK4 :
     def NuevaY(self):
         for i in range(len(self.y)):
             self.y[i]=self.y[i]+(1/6)*(self.k1[i]+2*self.k2[i]+2*self.k3[i]+self.k4[i])
+        self.xA=math.cos(self.t)+math.sin(self.t)
             
     #se define la funcion itera para poder ocupar hacer uso de las funciones anteriores.
     #Las funciones anteriores no necesitan parametros mas que Fcalcula, esto es a lo que
@@ -114,10 +118,13 @@ class RK4 :
         print("X[",self.t,"] = ",self.y)
         self.graft.append(self.t)
         self.grafx.append(self.y[0])
+        self.grafxanalitica.append(self.xA)
 
 problema=RK4()
-for i in range(1000):
+for i in range(10):
     problema.itera()
-    plt.plot(problema.graft,problema.grafx,'+-')
+    plt.plot(problema.graft,problema.grafx,'bo',label="grafica1")
+    plt.plot(problema.graft,problema.grafxanalitica,'o-',label="grafica2")
+    plt.legend(loc="upper left")
     plt.show()
-    time.sleep(0.0001)
+    time.sleep(0.01)

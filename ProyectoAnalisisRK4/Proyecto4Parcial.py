@@ -21,6 +21,7 @@ class RK4 :
     #listas para sacar la grafica del problema
     grafx=[]
     graft=[]
+    grafxanalitica=[]
     #constructor del objeto para encontrar la solucion
     def __init__(self):
         #se agrega en el vector(lista) y los valores iniciales tomando en cuenta que
@@ -37,6 +38,7 @@ class RK4 :
         #en equis para su posteriror ploteo
         self.graft.append(self.t)
         self.grafx.append(self.y[0])
+        self.grafxanalitica.append(self.y[0])
         
     #Esta funcion funge como auxiliar que calula el vector F de cada problema,
     #haciendolo funcion y generica lo podemos usar para cualquier k cambiando
@@ -98,6 +100,7 @@ class RK4 :
     def NuevaY(self):
         for i in range(len(self.y)):
             self.y[i]=self.y[i]+(1/6)*(self.k1[i]+2*self.k2[i]+2*self.k3[i]+self.k4[i])
+        self.xA=math.cos(self.t)+math.sin(self.t)
             
     #se define la funcion itera para poder ocupar hacer uso de las funciones anteriores.
     #Las funciones anteriores no necesitan parametros mas que Fcalcula, esto es a lo que
@@ -116,6 +119,7 @@ class RK4 :
         #print("X[",self.t,"] = ",self.y)
         self.graft.append(self.t)
         self.grafx.append(self.y[0])
+        self.grafxanalitica.append(self.xA)
 
 class Application(Frame):
     #inicializacion de la ventana
@@ -221,7 +225,9 @@ class Application(Frame):
         rk4=RK4()
         for i in range(100):
             rk4.itera()
-            plt.plot(rk4.graft,rk4.grafx)
+            plt.plot(rk4.graft,rk4.grafx,'bo-',label="solucion con RK4")
+            plt.plot(rk4.graft,rk4.grafxanalitica,'r',label="solucion analitica")
+            plt.legend(loc="upper left")
             fig.canvas.draw()
             time.sleep(0.1)   
         
@@ -282,10 +288,14 @@ class Application(Frame):
         
         self.impresion = Text(self.textoFrame)
         rk4=RK4()
-        self.impresion.insert(INSERT,'X['+str(rk4.t)+'] = ['+str(rk4.y[0])+']\n')
+        texto='+-------------------------------------------------------------------------+\n'
+        texto+='{0}{1:>7}{0}{2:>21}{0}{3:>21}{0}{4:>21}{0} \n'.format('|','Tiempo','Solucion analitica','Solucion RK','Error')
+        texto+='+-------------------------------------------------------------------------+\n'
         for i in range(100):
             rk4.itera()
-            self.impresion.insert(INSERT,'X['+str(rk4.t)+'] = ['+str(rk4.y[0])+']\n')
+            texto+='{0}{1:>7}{0}{2:>21}{0}{3:>21}{0}{4:>21}{0} \n'.format('|',rk4.t,rk4.xA,rk4.y[0],math.fabs((rk4.xA-rk4.y[0])/rk4.xA)*100) 
+        
+        self.impresion.insert(INSERT,texto)
         self.impresion.insert(END,'')
         self.impresion.pack({"side":"top"})
         
